@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:15
+    container_name: jhil_database_container
+    restart: always
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - jhil_db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+volumes:
+  jhil_db_data:
